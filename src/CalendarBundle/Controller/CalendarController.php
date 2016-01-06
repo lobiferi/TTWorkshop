@@ -16,6 +16,7 @@
 
 		/**
 		 * @Route("/index")
+		 * todo: switching between locales is not implemented
 		 */
 		public function indexAction()
 		{
