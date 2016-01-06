@@ -7,6 +7,7 @@
 	use Symfony\Component\HttpFoundation\Request;
 	use Symfony\Component\Validator\ConstraintViolation;
 
+//todo: this is misuse of Symfony, it has all needed logic for this purpose. Please, remove this class and use forms correctly.
 	trait TTControllerHelperTrait
 	{
 		/**
