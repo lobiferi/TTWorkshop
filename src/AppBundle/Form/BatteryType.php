@@ -9,6 +9,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
+//todo: add to form configuration "data_class"
+//todo: also if you want to have asserts - move them to entity itself
 class BatteryType extends AbstractType
 {
     public $name;
