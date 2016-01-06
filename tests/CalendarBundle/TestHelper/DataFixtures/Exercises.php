@@ -11,6 +11,7 @@
 	{
 		public function load(ObjectManager $manager)
 		{
+			//todo: please, find out how faker library works and generate fixtures with nelmio/alice bundle
 			$days = 30;
 			$date = new \DateTime(sprintf('-%d day', $days));
 			$sortDesc = [
