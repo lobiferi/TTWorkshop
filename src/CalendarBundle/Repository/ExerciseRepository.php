@@ -13,6 +13,7 @@
 	class ExerciseRepository extends EntityRepository
 	{
 
+//todo: the idea is to have 1 SQL query to DB, with date in (today, week_ago, two_weeks_ago)
 		function getExercisesToday()
 		{
 			return $this->getExercises(0);
@@ -42,6 +43,10 @@
 		 */
 		protected function getDefaultQuery()
 		{
+			//todo: you do not need to write custom query for this case. ::findBy() will do the job
+			//todo: also because of this you do not need a Repository class at all.
+			//todo: you need to create some service class insteed, for example in 'scr/CalendarBundle/Service/Calendar.php'
+			//todo: and write Unit test for that Calendar service
 			/** @var $queryBuilder QueryBuilder */
 			$queryBuilder = $this->createQueryBuilder('o');
 			$queryBuilder->select('o.shortDesc');
