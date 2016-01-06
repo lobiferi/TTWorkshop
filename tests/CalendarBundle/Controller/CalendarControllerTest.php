@@ -22,9 +22,7 @@
 		 */
 		public function setup()
 		{
-			$this->regenerateSchema();
-			$fixture = new Exercises();
-			$fixture->load($this->em);
+			$this->regenerateSchema([Exercises::class]);
 		}
 
 		public function testIndex()

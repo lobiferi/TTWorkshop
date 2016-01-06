@@ -17,7 +17,7 @@
 		 */
 		protected $client;
 
-		protected function regenerateSchema()
+		protected function regenerateSchema(array $fixtures)
 		{
 			$this->client = static::createClient();
 			$container = $this->client->getContainer();
@@ -32,6 +32,12 @@
 				$tool = new SchemaTool($this->em);
 				$tool->dropSchema($metadata);
 				$tool->createSchema($metadata);
+			}
+
+			foreach($fixtures as $fixtureClass)
+			{
+				$fixture = new $fixtureClass();
+				$fixture->load($this->em);
 			}
 		}
 

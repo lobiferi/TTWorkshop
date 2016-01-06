@@ -17,9 +17,7 @@
 		 */
 		public function setup()
 		{
-			$this->regenerateSchema();
-			$fixture = new Batteries();
-			$fixture->load($this->em);
+			$this->regenerateSchema([Batteries::class]);
 		}
 
 		public function testIndex()
