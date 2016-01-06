@@ -37,6 +37,7 @@
 		/**
 		 * @Route("/new")
 		 * @Method({"GET"})
+		 * //todo: please, combine indexAction and postAction. It should be one action, responsible for both processes
 		 */
 		public function indexAction(Request $request)
 		{
@@ -58,7 +59,9 @@
 			if ($form->isValid())
 			{
 				$em = $this->getDoctrine()->getManager();
+				//todo: form itself is able to generate battery, so no need to create it manually in this case
 				$battery = new Battery();
+				//todo: if you configure form correctly, then $form->getData() will return Battery object with all parameters set.
 				$battery->setName($form->get('name')->getData());
 				$battery->setBatteryType($form->get('batteryType')->getData());
 				$battery->setCount($form->get('count')->getData());
@@ -68,6 +71,7 @@
 
 				return $this->redirectToRoute('app_batterypack_report');
 			}
+			//todo: this is really not needed. Form is able to render errors togather with fields. In flash bag there should be just a message that "you have errors"
 			$this->saveErrorsToFlashBag($request, $form);
 
 			return $this->redirectToRoute('app_batterypack_index');
