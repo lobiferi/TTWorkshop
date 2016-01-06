@@ -58,14 +58,11 @@
 			if ($form->isValid())
 			{
 				$em = $this->getDoctrine()->getManager();
-				$battery = new Battery();
-				$battery->setName($form->get('name')->getData());
-				$battery->setBatteryType($form->get('batteryType')->getData());
-				$battery->setCount($form->get('count')->getData());
-
-				$em->persist($battery);
+				/** @var BatteryType $data */
+				$data = $form->getData();
+				$em->persist((new Battery())->setName($data->name)->setBatteryType($data->batteryType)->setCount($data->count));
+				//$em->persist($form->getData());
 				$em->flush();
-
 				return $this->redirectToRoute('app_batterypack_report');
 			}
 			$this->saveErrorsToFlashBag($request, $form);

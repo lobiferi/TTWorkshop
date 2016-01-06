@@ -25,7 +25,7 @@
 		 * @param AbstractType $formClass
 		 * @return \Symfony\Component\Form\Form
 		 */
-		protected function initForm(Request $request, $formClass)
+		protected function initForm(Request $request, $formClass, $formData = null)
 		{
 			$flashBag = $request->getSession()->getFlashBag();
 			$errors = $flashBag->get('validation_error_' . $formClass);
@@ -36,15 +36,13 @@
 				$request = $errorRequest[0];
 			}
 
-			$form = $this->createForm($formClass, new $formClass());
+			$form = $this->createForm($formClass, $formData);
 
 			if ($errors)
 			{
 				foreach ($errors[0] as $error)
 				{
-					$cause = new ConstraintViolation($error['message'], $error['messageTemplate'], $error['messageParameters'], $error['messagePluralization'], $form->get($error['cause']), $error['invalidValue']);
-					$formError = new FormError($error['message'], $error['messageTemplate'], $error['messageParameters'], $error['messagePluralization']);
-					$form->get($error['cause'])->addError($formError);
+					$form->get($error['cause'])->addError(new FormError($error['message'], $error['messageTemplate'], $error['messageParameters'], $error['messagePluralization']));
 				}
 			}
 
@@ -76,9 +74,7 @@
 					'invalidValue' => $cause->getInvalidValue()
 				];
 			}
-			$flashBag = $request->getSession()->getFlashBag();
-
-			$flashBag->add('validation_error_' . $formClass, $errors);
-			$flashBag->add('validation_error_request_' . $formClass, $request);
+			$this->addFlash('validation_error_' . $formClass, $errors);
+			$this->addFlash('validation_error_request_' . $formClass, $request);
 		}
 	}
