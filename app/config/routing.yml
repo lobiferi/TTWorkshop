@@ -1,0 +1,6 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+calendar:
+    resource: "@CalendarBundle/Controller/"
+    type:     annotation
